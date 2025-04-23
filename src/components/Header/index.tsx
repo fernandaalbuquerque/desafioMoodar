@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PokeBallIcon from '../../assets/icons/PokeballIcon';
 import SearchIcon from '../../assets/icons/SearchIcon';
-import { RootState } from '../../store';
 import { setSearchText } from '../../store/slices/searchSlice';
 import { styles } from './styles';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const searchText = useSelector((state: RootState) => state.search.text);
+  const [localSearch, setLocalSearch] = useState('');
 
   return (
     <View style={styles.container}>
@@ -26,8 +25,9 @@ export default function Header() {
           placeholder="Search"
           placeholderTextColor="#666"
           style={styles.input}
-          onChangeText={(text) => dispatch(setSearchText(text))}
-          // value={text}
+          onChangeText={(text) => setLocalSearch(text)}
+          onSubmitEditing={() => dispatch(setSearchText(localSearch))}
+          value={localSearch}
           numberOfLines={1}
         />
       </View>

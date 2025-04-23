@@ -1,42 +1,25 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import api from '../services/api';
+import api from './api';
 
-export const fetchPokemons = createAsyncThunk('pokemon/fetchAll', async () => {
-  const response = await api.get('/pokemon?limit=20&offset=0');
-  return response.data.results; // retorna uma lista com nome e URL dos pokémons
-});
-
-interface PokemonState {
-  data: { name: string; url: string }[];
-  loading: boolean;
-  error: string | null;
-}
-
-const initialState: PokemonState = {
-  data: [],
-  loading: false,
-  error: null,
+export type Pokemon = {
+  id: number;
+  name: string;
+  image: string;
 };
 
-const pokemonSlice = createSlice({
-  name: 'pokemon',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchPokemons.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchPokemons.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.loading = false;
-      })
-      .addCase(fetchPokemons.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Erro ao buscar pokémons';
-      });
-  },
-});
+export async function fetchPokemons(offset = 0, limit = 20): Promise<Pokemon[]> {
+  const res = await api.get(`/pokemon?offset=${offset}&limit=${limit}`);
+  const results = res.data.results; // [{ name, url }]
 
-export default pokemonSlice.reducer;
+  const detailed = await Promise.all(
+    results.map(async (p: { url: string }) => {
+      const detail = await api.get(p.url);
+      return {
+        id: detail.data.id,
+        name: detail.data.name,
+        image: detail.data.sprites.front_default,
+      };
+    }),
+  );
+
+  return detailed;
+}
