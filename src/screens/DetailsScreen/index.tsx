@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Image, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { fetchPokemons } from '../../services/pokemon';
 import colors from '../../theme/colors';
 import { styles } from './styles';
 
 export default function DetailsScreen() {
-  // const searchText = useSelector((state: RootState) => state.search.text);
   const [pokemons, setPokemons] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const { width } = Dimensions.get('window');
+  const itemWidth = (width - 48) / 3;
 
   const loadMore = async () => {
     if (loading || !hasMore) return;
@@ -38,26 +47,28 @@ export default function DetailsScreen() {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.primary,
-        display: 'flex',
         padding: 4,
       }}
     >
-      <FlatList
-        data={pokemons}
-        keyExtractor={(item) => item.id.toString()}
-        onEndReached={loadMore}
-        onEndReachedThreshold={0.3}
-        style={styles.container}
-        ListFooterComponent={loading ? <ActivityIndicator size="large" color="#DC0A2D" /> : null}
-        renderItem={({ item }) => (
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-            <Image source={{ uri: item.image }} style={{ width: 48, height: 48 }} />
-            <Text style={{ marginLeft: 12 }}>
-              {item.name} (#{item.id})
-            </Text>
-          </View>
-        )}
-      />
+      <View style={styles.container}>
+        <FlatList
+          data={pokemons}
+          keyExtractor={(item) => item.id.toString()}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.3}
+          numColumns={3}
+          contentContainerStyle={styles.flatlist}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
+          ListFooterComponent={loading ? <ActivityIndicator size="large" color="#DC0A2D" /> : null}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity style={styles.pokemonBox} key={index}>
+              <Image source={{ uri: item.image }} style={{ width: 72, height: 72 }} />
+              <Text>{item.name}</Text>
+              <Text>(#{item.id})</Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     </View>
   );
 }
