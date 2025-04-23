@@ -63,8 +63,10 @@ export default function DetailsScreen() {
           renderItem={({ item, index }) => (
             <TouchableOpacity style={styles.pokemonBox} key={index}>
               <Image source={{ uri: item.image }} style={{ width: 72, height: 72 }} />
-              <Text>{item.name}</Text>
               <Text>(#{item.id})</Text>
+              <View style={styles.pokemonBoxDetail}>
+                <Text>{item.name}</Text>
+              </View>
             </TouchableOpacity>
           )}
         />

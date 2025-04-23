@@ -15,14 +15,31 @@ export const styles = StyleSheet.create({
   flatlist: {
     paddingVertical: 24,
     paddingHorizontal: 12,
-    backgroundColor: 'pink',
   },
 
   pokemonBox: {
-    backgroundColor: colors.grayscale.light,
+    backgroundColor: colors.grayscale.white,
     alignItems: 'center',
     borderRadius: 8,
     width: itemSize,
     marginBottom: 16,
+    // iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    // Android
+    elevation: 4,
+  },
+
+  pokemonBoxDetail: {
+    position: 'absolute',
+    width: '100%',
+    flex: 1,
+    backgroundColor: colors.grayscale.background,
+    bottom: 0,
+    paddingTop: 24,
+    paddingBottom: 4,
+    alignItems: 'center',
   },
 });
