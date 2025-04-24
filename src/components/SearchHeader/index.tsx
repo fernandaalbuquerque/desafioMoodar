@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import PokeBallIcon from '../../assets/icons/PokeballIcon';
@@ -9,6 +9,14 @@ import { styles } from './styles';
 export default function SearchHeader() {
   const dispatch = useDispatch();
   const [localSearch, setLocalSearch] = useState('');
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      dispatch(setSearchText(localSearch));
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [localSearch, dispatch]);
 
   return (
     <View style={styles.container}>
@@ -25,8 +33,7 @@ export default function SearchHeader() {
           placeholder="Search"
           placeholderTextColor="#666"
           style={styles.input}
-          onChangeText={(text) => setLocalSearch(text)}
-          onSubmitEditing={() => dispatch(setSearchText(localSearch))}
+          onChangeText={setLocalSearch}
           value={localSearch}
           numberOfLines={1}
         />

@@ -1,23 +1,21 @@
 // src/screens/styles.ts
 import { Dimensions, StyleSheet } from 'react-native';
+import { colors } from '../../theme/colors';
 
 const { width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   scrollContainer: {
-    paddingBottom: 24,
-    backgroundColor: '#f6f6f6',
     flex: 1,
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
+    alignItems: 'center',
   },
   header: {
     paddingTop: 60,
     paddingHorizontal: 16,
-    paddingBottom: 72,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
+    paddingBottom: 8,
     alignItems: 'center',
-    height: '100%',
-    flex: 1,
   },
   headerTop: {
     flexDirection: 'row',
@@ -40,17 +38,48 @@ export const styles = StyleSheet.create({
     width: 100,
     textAlign: 'right',
   },
+  screenContainer: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 4,
+    alignItems: 'center',
+  },
   image: {
-    width: 160,
-    height: 160,
-    // position: 'absolute',
-    top: 80,
+    width: 200,
+    height: 200,
     zIndex: 1,
+  },
+  carrousel: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  infosContainer: {
+    backgroundColor: colors.grayscale.white,
+    width: '100%',
+    flex: 1,
+    position: 'absolute',
+    top: 130,
+    paddingTop: 70,
+    borderRadius: 8,
+    alignItems: 'center',
+    gap: 16,
+    paddingBottom: 20,
   },
   typesRow: {
     flexDirection: 'row',
     gap: 8,
-    marginTop: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  typeBadge: { paddingHorizontal: 8, paddingVertical: 2, borderRadius: 10 },
+  typeBadgeText: {
+    fontSize: 10,
+    lineHeight: 16,
+    color: colors.grayscale.white,
+    fontWeight: 'bold',
   },
   section: {
     backgroundColor: 'white',
@@ -71,30 +100,43 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center',
   },
-  aboutRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  aboutItem: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  aboutValue: {
+  aboutText: {
     fontSize: 14,
+    lineHeight: 16,
     fontWeight: 'bold',
-    color: '#333',
-  },
-  aboutLabel: {
-    fontSize: 12,
-    color: '#999',
-    marginTop: 4,
   },
   description: {
     fontSize: 14,
     color: '#444',
-    textAlign: 'center',
-    marginTop: 16,
     lineHeight: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+  },
+  aboutRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    marginBottom: 16,
+  },
+
+  aboutItem: {
+    flex: 1,
+    alignItems: 'center',
+    paddingHorizontal: 4,
+  },
+
+  aboutValue: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#1D1D1D',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+
+  aboutLabel: {
+    fontSize: 12,
+    color: '#666',
+    textAlign: 'center',
   },
 });
