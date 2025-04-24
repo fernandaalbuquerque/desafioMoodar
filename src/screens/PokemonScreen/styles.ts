@@ -117,7 +117,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 8,
-    marginBottom: 16,
+    // marginBottom: 16,
   },
 
   aboutItem: {

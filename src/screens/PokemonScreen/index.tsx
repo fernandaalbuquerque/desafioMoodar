@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
 import { RootStackParamList } from '../../../App';
 import BackIcon from '../../assets/icons/BackIcon';
 import NextIcon from '../../assets/icons/NextIcon';
@@ -45,12 +45,7 @@ export default function PokemonScreen() {
     return <ActivityIndicator size="large" color="#DC0A2D" style={{ flex: 1 }} />;
 
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.scrollContainer,
-        { backgroundColor: getColorByType(typeColor) },
-      ]}
-    >
+    <View style={[styles.scrollContainer, { backgroundColor: getColorByType(typeColor) }]}>
       <View style={styles.header}>
         <View style={styles.headerTop}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backIconArea}>
@@ -116,6 +111,6 @@ export default function PokemonScreen() {
           ))}
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
