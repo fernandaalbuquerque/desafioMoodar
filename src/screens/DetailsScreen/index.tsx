@@ -1,15 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  Dimensions,
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { fetchPokemons } from '../../services/pokemon';
-import colors from '../../theme/colors';
+import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import { fetchPokemons, ITEM_PER_FETCH } from '../../services/pokemon';
+
+import { colors } from '../../theme/colors';
+import { NavigationProps } from '../../types/navigation';
+import { capitalizeWords, padId } from '../../utils/textFormatter';
 import { styles } from './styles';
 
 export default function DetailsScreen() {
@@ -17,18 +13,18 @@ export default function DetailsScreen() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
-  const { width } = Dimensions.get('window');
-  const itemWidth = (width - 48) / 3;
+
+  const navigation = useNavigation<NavigationProps>();
 
   const loadMore = async () => {
     if (loading || !hasMore) return;
 
     setLoading(true);
     try {
-      const newData = await fetchPokemons(page * 20, 20);
+      const newData = await fetchPokemons(page * ITEM_PER_FETCH, ITEM_PER_FETCH);
       setPokemons((prev) => [...prev, ...newData]);
       setPage((prev) => prev + 1);
-      if (newData.length < 20) setHasMore(false); // fim da lista
+      if (newData.length < ITEM_PER_FETCH) setHasMore(false); // fim da lista
     } catch (err) {
       console.error('Erro ao carregar pokémons:', err);
     } finally {
@@ -61,11 +57,15 @@ export default function DetailsScreen() {
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           ListFooterComponent={loading ? <ActivityIndicator size="large" color="#DC0A2D" /> : null}
           renderItem={({ item, index }) => (
-            <TouchableOpacity style={styles.pokemonBox} key={index}>
-              <Image source={{ uri: item.image }} style={{ width: 72, height: 72 }} />
-              <Text>(#{item.id})</Text>
+            <TouchableOpacity
+              style={styles.pokemonBox}
+              key={index}
+              onPress={() => navigation.navigate('Pokemon', { id: item.id })}
+            >
+              <Text style={styles.idText}>#{padId(item.id)}</Text>
+              <Image source={{ uri: item.image }} style={styles.image} />
               <View style={styles.pokemonBoxDetail}>
-                <Text>{item.name}</Text>
+                <Text style={styles.nameText}>{capitalizeWords(item.name)}</Text>
               </View>
             </TouchableOpacity>
           )}

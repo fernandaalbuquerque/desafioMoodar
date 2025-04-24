@@ -2,28 +2,6 @@ const colors = {
   // Identity
   primary: '#DC0A2D',
 
-  // Type colors
-  types: {
-    bug: '#A7B723',
-    dark: '#75574C',
-    dragon: '#7037FF',
-    electric: '#F9CF30',
-    fairy: '#E69EAC',
-    fighting: '#C12239',
-    fire: '#F57D31',
-    flying: '#A891EC',
-    ghost: '#70559B',
-    normal: '#AAA67F',
-    grass: '#74CB48',
-    ground: '#DEC16B',
-    ice: '#9AD6DF',
-    poison: '#A43E9E',
-    psychic: '#FB5584',
-    rock: '#B69E31',
-    steel: '#B7B9D0',
-    water: '#6493EB',
-  },
-
   // Grayscale
   grayscale: {
     dark: '#212121',
@@ -34,4 +12,25 @@ const colors = {
   },
 };
 
-export default colors;
+const typeColors = [
+  { name: 'normal', color: '#A8A77A' },
+  { name: 'fire', color: '#EE8130' },
+  { name: 'water', color: '#6390F0' },
+  { name: 'electric', color: '#F7D02C' },
+  { name: 'grass', color: '#7AC74C' },
+  { name: 'ice', color: '#96D9D6' },
+  { name: 'fighting', color: '#C22E28' },
+  { name: 'poison', color: '#A33EA1' },
+  { name: 'ground', color: '#E2BF65' },
+  { name: 'flying', color: '#A98FF3' },
+  { name: 'psychic', color: '#F95587' },
+  { name: 'bug', color: '#A6B91A' },
+  { name: 'rock', color: '#B6A136' },
+  { name: 'ghost', color: '#735797' },
+  { name: 'dragon', color: '#6F35FC' },
+  { name: 'dark', color: '#705746' },
+  { name: 'steel', color: '#B7B7CE' },
+  { name: 'fairy', color: '#D685AD' },
+];
+
+export { colors, typeColors };

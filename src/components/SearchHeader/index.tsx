@@ -6,7 +6,7 @@ import SearchIcon from '../../assets/icons/SearchIcon';
 import { setSearchText } from '../../store/slices/searchSlice';
 import { styles } from './styles';
 
-export default function Header() {
+export default function SearchHeader() {
   const dispatch = useDispatch();
   const [localSearch, setLocalSearch] = useState('');
 

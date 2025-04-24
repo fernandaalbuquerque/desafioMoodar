@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import colors from '../../theme/colors';
+import { colors } from '../../theme/colors';
 
 const { width } = Dimensions.get('window');
 const itemSize = (width - 70) / 3;
@@ -30,6 +30,29 @@ export const styles = StyleSheet.create({
     shadowRadius: 4,
     // Android
     elevation: 4,
+  },
+
+  idText: {
+    position: 'absolute',
+    fontSize: 8,
+    lineHeight: 12,
+    color: colors.grayscale.medium,
+    alignSelf: 'flex-end',
+    paddingTop: 4,
+    paddingHorizontal: 8,
+  },
+
+  image: {
+    width: 72,
+    height: 72,
+    zIndex: 3,
+    marginVertical: 14,
+  },
+
+  nameText: {
+    fontSize: 10,
+    lineHeight: 16,
+    color: colors.grayscale.dark,
   },
 
   pokemonBoxDetail: {
